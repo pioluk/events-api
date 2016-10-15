@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "author": "Piotr Łukomiak <181423@edu.p.lodz.pl",
   "private": true,
+  "eslintConfig": {
+    "extends": "standard"
+  },
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js"
