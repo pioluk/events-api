@@ -39,5 +39,5 @@ app.use((err, req, res, next) => {
 
 models.sequelize.sync()
   .then(() => {
-    app.listen(port, () => { console.log(`App listening at port ${port}`) });
+    app.listen(port, () => { console.log(`App listening on port ${port}`) });
   });
