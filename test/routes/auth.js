@@ -1,13 +1,15 @@
 /* global describe:true, it:true, before:true, after:true beforeEach:true, afterEach:true */
 
 const request = require('supertest')
+const expect = require('expect.js')
 const models = require('../../models')
 
 describe('auth routes', () => {
   let app = null
 
   before(done => {
-    models.sequelize.sync().then(() => { done() })
+    models.sequelize.sync()
+      .then(() => { done() })
   })
 
   after(done => {
@@ -69,6 +71,44 @@ describe('auth routes', () => {
         .send(expected)
         .expect('Content-Type', /json/)
         .expect(201, done)
+    })
+  })
+
+  describe('login', () => {
+    it('should return 400 when user does not exist', done => {
+      request(app)
+        .post('/login')
+        .send({ username: 'admin3', passoword: '1234' })
+        .expect('Content-Type', /json/)
+        .expect(400, done)
+    })
+
+    it('should return 401 when passwords don\'t match', done => {
+      request(app)
+        .post('/login')
+        .send({ username: 'user1', password: '4321' })
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+    })
+
+    it('should return 200 and token when credentials are correct', done => {
+      request(app)
+        .post('/login')
+        .send({ username: 'user1', password: '1234' })
+        .expect('Content-Type', /json/)
+        .expect(({ body }) => {
+          expect(body.success).to.be.ok()
+          expect(body.token).to.be.a('string')
+          expect(body.user).to.be.an('object')
+          expect(body.user).to.have.keys([
+            'createdAt',
+            'id',
+            'imageAvatar',
+            'username',
+            'updatedAt'
+          ])
+        })
+        .expect(200, done)
     })
   })
 })
