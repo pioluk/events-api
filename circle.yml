@@ -7,6 +7,7 @@ machine:
     version: 6.8
 dependencies:
   pre:
+    - rm -r node_modules
     - npm install -g yarn
   override:
     - yarn
