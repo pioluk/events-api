@@ -4,6 +4,13 @@ const { User } = require('../models')
 
 exports.register = (req, res, next) => {
   const { username, password, email } = req.body
+
+  if (typeof password !== 'string' || password.trim() === '') {
+    const error = new Error('Password is required')
+    error.status = 422
+    next(error)
+  }
+
   bcrypt.hash(password, 10, (err, hash) => {
     if (err) {
       return next(err)
