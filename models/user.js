@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  var user = sequelize.define('user', {
+  var user = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     }
   }, {
+    tableName: 'users',
     classMethods: {
       associate: models => {
         // associations can be defined here
