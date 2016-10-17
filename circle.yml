@@ -3,11 +3,15 @@ general:
     only:
       - master
 machine:
+  pre:
+    - mkdir ~/.yarn_cache
   node:
     version: 6.8
 dependencies:
   pre:
-    - rm -r node_modules
-    - npm install -g yarn
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    - rm -rf node_modules
+  cache_directories:
+    - ~/.yarn_cache
   override:
     - yarn
