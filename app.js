@@ -3,7 +3,6 @@ const bodyParser = require('body-parser')
 const logger = require('morgan')
 // const helmet = require('helmet')
 // const cors = require('cors')
-const models = require('./models')
 const routes = require('./routes')
 
 const DEFAULT_PORT = 3000
@@ -16,7 +15,7 @@ module.exports = function createApp () {
   app.disable('views')
 
   app.use(bodyParser.json())
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV !== 'test') {
     app.use(logger('dev'))
   }
   // app.use(helmet())
@@ -46,8 +45,6 @@ module.exports = function createApp () {
     res.status(err.status || 500)
     res.json({ success: false, error })
   })
-
-  models.sequelize.sync()
 
   return app.listen(port)
 }
