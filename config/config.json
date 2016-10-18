@@ -9,6 +9,6 @@
   "test": {
     "dialect": "sqlite",
     "logging": null,
-    "storage": "db.test.sqlite"
+    "storage": ":memory:"
   }
 }
