@@ -26,6 +26,25 @@ describe('auth routes', () => {
   })
 
   describe('register', () => {
+    it('should not respond to GET requests', done => {
+      request(app)
+        .get('/register')
+        .expect(404, done)
+    })
+
+    it('should not respond to PUT requests', done => {
+      request(app)
+        .put('/register')
+        .send({})
+        .expect(404, done)
+    })
+
+    it('should not respond to DELETE requests', done => {
+      request(app)
+        .delete('/register')
+        .expect(404, done)
+    })
+
     it('should fail to register user without username', done => {
       request(app)
         .post('/register')
@@ -75,7 +94,26 @@ describe('auth routes', () => {
   })
 
   describe('login', () => {
-    it('should return 400 when user does not exist', done => {
+    it('should not respond to GET requests', done => {
+      request(app)
+        .get('/register')
+        .expect(404, done)
+    })
+
+    it('should not respond to PUT requests', done => {
+      request(app)
+        .put('/register')
+        .send({})
+        .expect(404, done)
+    })
+
+    it('should not respond to DELETE requests', done => {
+      request(app)
+        .delete('/register')
+        .expect(404, done)
+    })
+
+    it('should respond with 400 when user does not exist', done => {
       request(app)
         .post('/login')
         .send({ username: 'admin3', passoword: '1234' })
@@ -83,7 +121,7 @@ describe('auth routes', () => {
         .expect(400, done)
     })
 
-    it('should return 401 when passwords don\'t match', done => {
+    it('should respond with 401 when passwords don\'t match', done => {
       request(app)
         .post('/login')
         .send({ username: 'user1', password: '4321' })
@@ -91,7 +129,7 @@ describe('auth routes', () => {
         .expect(401, done)
     })
 
-    it('should return 200 and token when credentials are correct', done => {
+    it('should respond with 200 and token when credentials are correct', done => {
       request(app)
         .post('/login')
         .send({ username: 'user1', password: '1234' })
