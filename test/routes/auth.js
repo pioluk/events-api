@@ -1,7 +1,7 @@
 /* global describe:true, it:true, before:true, after:true beforeEach:true, afterEach:true */
 
 const request = require('supertest')
-const expect = require('expect.js')
+const { expect } = require('chai')
 const models = require('../../models')
 
 describe('auth routes', () => {
@@ -25,7 +25,7 @@ describe('auth routes', () => {
     app = null
   })
 
-  describe('register', () => {
+  describe('/register', () => {
     it('should not respond to GET requests', done => {
       request(app)
         .get('/register')
@@ -93,7 +93,7 @@ describe('auth routes', () => {
     })
   })
 
-  describe('login', () => {
+  describe('/login', () => {
     it('should not respond to GET requests', done => {
       request(app)
         .get('/register')
@@ -135,11 +135,12 @@ describe('auth routes', () => {
         .send({ username: 'user1', password: '1234' })
         .expect('Content-Type', /json/)
         .expect(({ body }) => {
-          expect(body.success).to.be.ok()
+          expect(body.success).to.be.ok
           expect(body.token).to.be.a('string')
           expect(body.user).to.be.an('object')
           expect(body.user).to.have.keys([
             'createdAt',
+            'email',
             'id',
             'imageAvatar',
             'username',

@@ -11,5 +11,5 @@ describe('app', () => {
     app.close(done)
   })
 
-  it('should start', () => {})
+  it('should start without crashing', () => {})
 })

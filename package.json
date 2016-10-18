@@ -1,7 +1,7 @@
 {
   "name": "api",
   "version": "0.1.0",
-  "author": "Piotr Łukomiak <181423@edu.p.lodz.pl",
+  "author": "Piotr Łukomiak <181423@edu.p.lodz.pl>",
   "private": true,
   "eslintConfig": {
     "extends": "standard"
@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon main.js",
     "start": "NODE_ENV=production node main.js",
-    "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test && rm db.test.sqlite"
+    "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
@@ -21,7 +21,8 @@
     "jsonwebtoken": "^7.1.9",
     "morgan": "^1.7.0",
     "pg": "^6.1.0",
-    "sequelize": "^3.24.3"
+    "sequelize": "^3.24.3",
+    "sinon": "^1.17.6"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
