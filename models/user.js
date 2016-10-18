@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  var user = sequelize.define('User', {
+  var User = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -34,12 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     createdAt: {
-      allowNull: false,
       field: 'created_at',
       type: DataTypes.DATE
     },
     updatedAt: {
-      allowNull: false,
       field: 'updated_at',
       type: DataTypes.DATE
     }
@@ -47,10 +45,10 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'users',
     classMethods: {
       associate: models => {
-        // associations can be defined here
+        User.hasMany(models.Event)
       }
     }
   })
 
-  return user
+  return User
 }
