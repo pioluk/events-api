@@ -7,13 +7,14 @@
     "extends": "standard"
   },
   "scripts": {
-    "dev": "nodemon main.js",
-    "start": "node main.js",
-    "test": "NODE_ENV=test SECRET=test PORT=3334 mocha test/**/*.js"
+    "dev": "NODE_ENV=development nodemon main.js",
+    "start": "NODE_ENV=production node main.js",
+    "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test && rm db.test.sqlite"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "helmet": "^2.3.0",
