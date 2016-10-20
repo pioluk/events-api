@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 module.exports = {
-  up: function(queryInterface, Sequelize) {
+  up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('users', {
       id: {
         allowNull: false,
@@ -23,22 +23,22 @@ module.exports = {
         type: Sequelize.STRING
       },
       imageAvatar: {
-        field: 'image_avatar',
+        // field: 'image_avatar',
         type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        field: 'created_at',
+        // field: 'created_at',
         type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        field: 'updated_at',
+        // field: 'updated_at',
         type: Sequelize.DATE
       }
-    });
+    })
   },
-  down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('users');
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('users')
   }
-};
+}

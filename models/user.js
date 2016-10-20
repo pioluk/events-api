@@ -30,15 +30,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     imageAvatar: {
-      field: 'image_avatar',
+      // field: 'image_avatar',
       type: DataTypes.STRING
     },
     createdAt: {
-      field: 'created_at',
+      // field: 'created_at',
       type: DataTypes.DATE
     },
     updatedAt: {
-      field: 'updated_at',
+      // field: 'updated_at',
       type: DataTypes.DATE
     }
   }, {

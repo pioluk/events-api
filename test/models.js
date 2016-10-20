@@ -15,4 +15,11 @@ describe('models', () => {
       expect(models.User).to.be.an('object')
     })
   })
+
+  describe('Event model', () => {
+    it('should exist', () => {
+      expect(models.Event).to.be.ok
+      expect(models.Event).to.be.an('object')
+    })
+  })
 })
