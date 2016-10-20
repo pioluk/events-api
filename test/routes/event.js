@@ -26,20 +26,7 @@ describe('event routes', () => {
     app = null
   })
 
-  describe('/event', () => {
-    it('should not respond to PUT requests', done => {
-      request(app)
-        .put('/event')
-        .send({})
-        .expect(404, done)
-    })
-
-    it('should not respond to DELETE requests', done => {
-      request(app)
-        .delete('/event')
-        .expect(404, done)
-    })
-
+  describe('GET /event', () => {
     it('should respond with empty array on initial GET', done => {
       request(app)
         .get('/event')
@@ -95,25 +82,27 @@ describe('event routes', () => {
     })
   })
 
-  describe('/event/:id', () => {
+  describe('GET /event/:id', () => {
     before(done => {
       Event.truncate().then(() => { done() })
     })
 
-    it('should respond with 400 if the parameter is not an integer', done => {
+    it('should respond with 400 if the id is not an integer', done => {
       request(app)
         .get('/event/asdf')
         .expect('Content-Type', /json/)
         .expect(400, done)
     })
 
-    it('should respond with 404 if the request event does not exist', done => {
+    it('should respond with 404 if the requested event does not exist', done => {
       request(app)
         .get('/event/1')
         .expect('Content-Type', /json/)
         .expect(404, done)
     })
+  })
 
+  describe('POST /event', () => {
     it('should return an event if it exists', done => {
       const expectedEvent = {
         UserId: 1,
