@@ -12,7 +12,7 @@ exports.get = (req, res, next) => {
   const id = +req.params.id
 
   if (typeof id !== 'number' || Object.is(id, NaN)) {
-    const error = new Error(`Event id should be an integer`)
+    const error = new Error('Event id should be an integer')
     error.status = 400
     throw error
   }

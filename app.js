@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
 // const helmet = require('helmet')
-// const cors = require('cors')
+const cors = require('cors')
 const routes = require('./routes')
 
 const DEFAULT_PORT = 3000
@@ -25,7 +25,7 @@ module.exports = function createApp () {
     next()
   })
 
-  // app.options('*', cors())
+  app.options('*', cors())
 
   app.use(routes)
 

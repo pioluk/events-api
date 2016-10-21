@@ -7,7 +7,7 @@
     "extends": "standard"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon main.js",
+    "dev": "NODE_ENV=development SECRET=dev nodemon main.js",
     "start": "NODE_ENV=production node main.js",
     "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test"
   },
