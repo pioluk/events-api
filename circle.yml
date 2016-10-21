@@ -15,3 +15,6 @@ dependencies:
     - ~/.yarn_cache
   override:
     - yarn
+test:
+  post:
+    - bash <(curl -s https://codecov.io/bash) -t 50a5f817-bce8-466a-ad33-06cffdf89335
