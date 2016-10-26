@@ -41,7 +41,7 @@ module.exports = {
       },
       color: {
         allowNull: false,
-        type: Sequelize.STRING(6)
+        type: Sequelize.STRING(7)
       },
       imageThumbnail: {
         // field: 'image_thumbnail',

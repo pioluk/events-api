@@ -42,9 +42,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     color: {
       allowNull: false,
-      type: DataTypes.STRING(6),
+      type: DataTypes.STRING(7),
       validate: {
-        len: 6,
+        len: [4, 7],
         notEmpty: true
       }
     },
