@@ -1,4 +1,7 @@
-const { Event } = require('../models')
+const models = require('../models')
+const upload = require('./upload')
+
+const { sequelize, Event } = models
 
 exports.getAll = (req, res, next) => {
   Event.findAll()
@@ -32,10 +35,14 @@ exports.get = (req, res, next) => {
 
 exports.create = (req, res, next) => {
   const body = req.body
-  Event.create(body)
-    .then(() => {
-      res.status(201)
-      res.json(body)
-    })
-    .catch(err => next(err))
+
+  sequelize.transaction(t =>
+    Event.create(body, { transaction: t })
+      .then(() => req.files && req.files.length > 0 ? upload(req.files[0]) : Promise.resolve())
+  )
+  .then(() => {
+    res.status(201)
+    res.json(body)
+  })
+  .catch(err => next(err))
 }

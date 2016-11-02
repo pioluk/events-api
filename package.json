@@ -12,6 +12,7 @@
     "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test"
   },
   "dependencies": {
+    "aws-sdk": "^2.6.13",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
@@ -20,9 +21,11 @@
     "helmet": "^2.3.0",
     "jsonwebtoken": "^7.1.9",
     "morgan": "^1.7.0",
+    "multer": "^1.2.0",
     "pg": "^6.1.0",
     "sequelize": "^3.24.3",
-    "sinon": "^1.17.6"
+    "sinon": "^1.17.6",
+    "uuid": "^2.0.3"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",

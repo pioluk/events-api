@@ -14,6 +14,7 @@ module.exports = function createApp () {
   app.disable('etag')
   app.disable('views')
 
+  app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   if (process.env.NODE_ENV !== 'test') {
     app.use(logger('dev'))
