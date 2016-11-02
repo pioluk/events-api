@@ -1,5 +1,5 @@
 const models = require('../models')
-const upload = require('./upload')
+const upload = require('../upload')
 
 const { sequelize, Event } = models
 
