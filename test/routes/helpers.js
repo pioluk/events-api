@@ -42,6 +42,6 @@ describe('helpers', () => {
   })
 
   describe('retrieveArrayFromFormData', () => {
-    it('', () => {})
+    it.skip('TODO: add test', () => {})
   })
 })
