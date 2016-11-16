@@ -10,7 +10,6 @@ module.exports = {
       },
       UserId: {
         allowNull: false,
-        // field: 'UserId',
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
@@ -27,46 +26,41 @@ module.exports = {
       },
       dateStart: {
         allowNull: false,
-        // field: 'date_start',
         type: Sequelize.DATE
       },
       dateEnd: {
         allowNull: false,
-        // field: 'date_end',
         type: Sequelize.DATE
       },
       placeId: {
-        // field: 'place_id',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'places',
+          key: 'id'
+        }
       },
       color: {
         allowNull: false,
         type: Sequelize.STRING(7)
       },
       imageThumbnail: {
-        // field: 'image_thumbnail',
         type: Sequelize.TEXT
       },
       imageSmall: {
-        // field: 'image_small',
         type: Sequelize.TEXT
       },
       imageBig: {
-        // field: 'image_big',
         type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
-        // field: 'created_at',
         type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        // field: 'updated_at',
         type: Sequelize.DATE
       },
       deletedAt: {
-        // field: 'deleted_at',
         type: Sequelize.DATE
       }
     })

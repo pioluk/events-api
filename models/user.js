@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  var User = sequelize.define('User', {
+  const User = sequelize.define('User', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -30,15 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     imageAvatar: {
-      // field: 'image_avatar',
       type: DataTypes.STRING
     },
     createdAt: {
-      // field: 'created_at',
       type: DataTypes.DATE
     },
     updatedAt: {
-      // field: 'updated_at',
       type: DataTypes.DATE
     }
   }, {

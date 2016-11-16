@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
-  var Phone = sequelize.define('Phone', {
+  const Phone = sequelize.define('Phone', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -36,6 +36,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   })
-  // Phone.removeAttribute('id')
+
   return Phone
 }

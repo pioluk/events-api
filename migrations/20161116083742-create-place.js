@@ -1,28 +1,28 @@
 'use strict'
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('users', {
+    return queryInterface.createTable('places', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      name: {
         allowNull: false,
-        unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
-      email: {
+      lat: {
         allowNull: false,
-        unique: true,
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
-      password: {
+      lng: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL
       },
-      imageAvatar: {
+      placeId: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
@@ -36,6 +36,6 @@ module.exports = {
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('users')
+    return queryInterface.dropTable('places');
   }
 }
