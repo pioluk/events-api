@@ -32,7 +32,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      placeId: {
+      PlaceId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'places',

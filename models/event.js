@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DATE
     },
-    placeId: {
+    PlaceId: {
       type: DataTypes.INTEGER
     },
     color: {
