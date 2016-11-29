@@ -2,7 +2,7 @@ const models = require('../models')
 const upload = require('../upload')
 const { retrieveEmails, retrievePhones, retrieveWebsites } = require('./helpers')
 
-const { sequelize, Event, Email, Phone, Website } = models
+const { sequelize, Event, Email, Phone, Website, Place } = models
 
 exports.getAll = (req, res, next) => {
   Event.findAll()
@@ -52,6 +52,9 @@ const addWebsites = (eventId, websites, t) =>
     { validate: true, transaction: t }
   )
 
+const createPlace = t => (name, lat, lng, placeId) =>
+  Place.create({ name, lat, lng, placeId }, { transaction: t })
+
 exports.create = (req, res, next) => {
   const body = req.body
 
@@ -62,12 +65,13 @@ exports.create = (req, res, next) => {
   let event
 
   sequelize.transaction(t =>
-    Event.create(body, { transaction: t })
-      .then(({ dataValues }) => { event = dataValues })
-      .then(() => (emails instanceof Array && emails.length > 0) && addEmails(event.id, emails, t))
-      .then(() => (phones instanceof Array && phones.length > 0) && addPhones(event.id, phones, t))
-      .then(() => (websites instanceof Array && websites.length > 0) && addWebsites(event.id, websites, t))
-      .then(() => req.files && req.files.length > 0 ? upload(req.files[0]) : Promise.resolve())
+    createPlace(t)(body['location.name'], body['location.lat'], body['location.lng'], body['location.placeId'])
+    // Event.create(body, { transaction: t })
+    //   .then(({ dataValues }) => { event = dataValues })
+    //   .then(() => (emails instanceof Array && emails.length > 0) && addEmails(event.id, emails, t))
+    //   .then(() => (phones instanceof Array && phones.length > 0) && addPhones(event.id, phones, t))
+    //   .then(() => (websites instanceof Array && websites.length > 0) && addWebsites(event.id, websites, t))
+    //   .then(() => req.files && req.files.length > 0 ? upload(req.files[0]) : Promise.resolve())
   )
   .then(() => {
     res.status(201)

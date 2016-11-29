@@ -28,6 +28,8 @@
     "uuid": "^2.0.3"
   },
   "devDependencies": {
+    "@types/express": "^4.0.34",
+    "@types/sequelize": "^4.0.39",
     "expect.js": "^0.3.1",
     "mocha": "^3.1.2",
     "nodemon": "^1.11.0",
