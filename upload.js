@@ -2,11 +2,12 @@ const AWS = require('aws-sdk')
 const uuid = require('uuid')
 
 const s3 = new AWS.S3({
+  signatureVersion: 'v4',
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 })
 
-const BUCKET_NAME = 'pioluk-final-project-images-original'
+const BUCKET_NAME = 'pioluk-event-images-original'
 
 module.exports = file =>
   new Promise((resolve, reject) => {
@@ -15,8 +16,6 @@ module.exports = file =>
       const params = { Bucket: BUCKET_NAME, Key: key, Body: file.buffer }
 
       s3.putObject(params, (err, data) => {
-        console.log(data)
-
         if (err) {
           console.error(err)
           reject(err)
