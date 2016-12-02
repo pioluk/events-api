@@ -42,9 +42,9 @@ describe('event routes', () => {
 
     it('should respond with events after adding them to database', done => {
       User.create({ username: 'user1', password: 'pass', email: 'user1@example.com' })
-        .then(() => Event.bulkCreate([
+        .then(user => Event.bulkCreate([
           {
-            UserId: 1,
+            UserId: user.id,
             title: 'Title #1',
             description: 'Description #1',
             dateStart: new Date('2016-01-01T12:00'),
@@ -56,7 +56,7 @@ describe('event routes', () => {
             imageBig: null
           },
           {
-            UserId: 1,
+            UserId: user.id,
             title: 'Title #2',
             description: 'Description #2',
             dateStart: new Date('2016-01-01T12:00'),
@@ -79,6 +79,51 @@ describe('event routes', () => {
               expect(body.events).to.have.length(2)
               expect(body.events[0].title).to.equal('Title #1')
               expect(body.events[1].title).to.equal('Title #2')
+            })
+            .expect(200, done)
+        })
+        .catch(err => done(err))
+    })
+
+    it('should respond with paginated events', done => {
+      Event.truncate()
+        .then(() => User.create({ username: 'user2', password: 'pass', email: 'user2@example.com' }))
+        .then(user => Event.bulkCreate([
+          {
+            UserId: user.id,
+            title: 'Title #1',
+            description: 'Description #1',
+            dateStart: new Date('2016-01-01T12:00'),
+            dateEnd: new Date('2016-01-01T13:00'),
+            PlaceId: null,
+            color: 'ffffff',
+            imageThumbnail: null,
+            imageSmall: null,
+            imageBig: null
+          },
+          {
+            UserId: user.id,
+            title: 'Title #2',
+            description: 'Description #2',
+            dateStart: new Date('2016-01-01T12:00'),
+            dateEnd: new Date('2016-01-01T13:00'),
+            PlaceId: null,
+            color: 'ffffff',
+            imageThumbnail: null,
+            imageSmall: null,
+            imageBig: null
+          }
+        ]))
+        .then(() => {
+          request(app)
+            .get('/event?limit=1&offset=1')
+            .expect('Content-Type', /json/)
+            .expect(({ body }) => {
+              expect(body).to.be.an('object')
+              expect(body.success).to.be.true
+              expect(body.count).to.equal(2)
+              expect(body.events).to.have.length(1)
+              expect(body.events[0].title).to.equal('Title #2')
             })
             .expect(200, done)
         })
