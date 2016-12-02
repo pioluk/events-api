@@ -5,9 +5,16 @@ const { retrieveEmails, retrievePhones, retrieveWebsites } = require('./helpers'
 const { sequelize, Event, Email, Phone, Website, Place } = models
 
 exports.getAll = (req, res, next) => {
-  Event.findAll()
-    .then(events => {
-      res.json(events)
+  const limit = +req.query.limit || 20
+  const offset = +req.query.offset || 0
+
+  Event.findAndCount({ order: [['updatedAt', 'DESC']], limit, offset })
+    .then(result => {
+      res.json({
+        count: result.count,
+        events: result.rows,
+        success: true
+      })
     })
     .catch(err => next(err))
 }
