@@ -55,8 +55,26 @@ const addWebsites = (eventId, websites, t) =>
 const createPlace = t => (name, lat, lng, placeId) =>
   Place.create({ name, lat, lng, placeId }, { transaction: t })
 
+const createPlaceIfNotExists = t => (name, lat, lng, placeId) => {
+  return Place.findOne({ where: { placeId }, transaction: t })
+    .then(place => {
+      if (place === null) {
+        return createPlace(t)(name, lat, lng, placeId)
+      } else {
+        return place
+      }
+    })
+}
+
+const addPlaceId = (body, placeId) => Object.assign({}, body, { PlaceId: placeId })
+
 exports.create = (req, res, next) => {
   const body = req.body
+
+  const locationName = body['location.name']
+  const locationLat = body['location.lat']
+  const locationLng = body['location.lng']
+  const locationPlaceId = body['location.placeId']
 
   const emails = retrieveEmails(body)
   const phones = retrievePhones(body)
@@ -65,13 +83,13 @@ exports.create = (req, res, next) => {
   let event
 
   sequelize.transaction(t =>
-    createPlace(t)(body['location.name'], body['location.lat'], body['location.lng'], body['location.placeId'])
-    // Event.create(body, { transaction: t })
-    //   .then(({ dataValues }) => { event = dataValues })
-    //   .then(() => (emails instanceof Array && emails.length > 0) && addEmails(event.id, emails, t))
-    //   .then(() => (phones instanceof Array && phones.length > 0) && addPhones(event.id, phones, t))
-    //   .then(() => (websites instanceof Array && websites.length > 0) && addWebsites(event.id, websites, t))
-    //   .then(() => req.files && req.files.length > 0 ? upload(req.files[0]) : Promise.resolve())
+    createPlaceIfNotExists(t)(locationName, locationLat, locationLng, locationPlaceId)
+      .then(place => Event.create(addPlaceId(body, place.id), { transaction: t }))
+      .then(e => { event = e })
+      .then(() => (emails instanceof Array && emails.length > 0) && addEmails(event.id, emails, t))
+      .then(() => (phones instanceof Array && phones.length > 0) && addPhones(event.id, phones, t))
+      .then(() => (websites instanceof Array && websites.length > 0) && addWebsites(event.id, websites, t))
+      .then(() => req.files && req.files.length > 0 ? upload(req.files[0]) : Promise.resolve())
   )
   .then(() => {
     res.status(201)
