@@ -9,8 +9,8 @@ exports.parseArray = parseArray
 
 const retrieveArrayFromFormData = p => data => {
   try {
-    const emails = prop(p, data)
-    return parseArray(emails)
+    const items = prop(p, data)
+    return parseArray(items)
   } catch (err) {
     return []
   }

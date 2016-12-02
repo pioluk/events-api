@@ -1,7 +1,7 @@
 /* global describe,it */
 
 const { expect } = require('chai')
-const { isNonEmptyString, parseArray, prop } = require('../../routes/helpers')
+const { isNonEmptyString, parseArray, prop, retrieveArrayFromFormData } = require('../../routes/helpers')
 
 describe('helpers', () => {
   describe('isNonEmptyString', () => {
@@ -42,6 +42,15 @@ describe('helpers', () => {
   })
 
   describe('retrieveArrayFromFormData', () => {
-    it.skip('TODO: add test', () => {})
+    it('should retrieve every item from form data string as array', () => {
+      const formData = { emails: 'a@example.com,b@example.com,c@example.com' }
+      const retrieveEmails = retrieveArrayFromFormData('emails')
+      const array = retrieveEmails(formData)
+      expect(array).to.deep.equal([
+        'a@example.com',
+        'b@example.com',
+        'c@example.com'
+      ])
+    })
   })
 })
