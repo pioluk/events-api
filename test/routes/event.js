@@ -32,8 +32,10 @@ describe('event routes', () => {
         .get('/event')
         .expect('Content-Type', /json/)
         .expect(({ body }) => {
-          expect(body).to.be.an('array')
-          expect(body).to.be.empty
+          expect(body).to.be.an('object')
+          expect(body.success).to.be.true
+          expect(body.count).to.equal(0)
+          expect(body.events).to.be.empty
         })
         .expect(200, done)
     })
@@ -71,10 +73,12 @@ describe('event routes', () => {
             .get('/event')
             .expect('Content-Type', /json/)
             .expect(({ body }) => {
-              expect(body).to.be.an('array')
-              expect(body).to.have.length(2)
-              expect(body[0].title).to.equal('Title #1')
-              expect(body[1].title).to.equal('Title #2')
+              expect(body).to.be.an('object')
+              expect(body.success).to.be.true
+              expect(body.count).to.equal(2)
+              expect(body.events).to.have.length(2)
+              expect(body.events[0].title).to.equal('Title #1')
+              expect(body.events[1].title).to.equal('Title #2')
             })
             .expect(200, done)
         })
