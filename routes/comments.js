@@ -9,7 +9,7 @@ exports.getAll = (req, res, next) => {
     .then(results => {
       res.json({
         count: results.count,
-        events: results.rows,
+        comments: results.rows,
         success: true
       })
     })
