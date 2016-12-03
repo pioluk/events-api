@@ -162,7 +162,7 @@ describe('event routes', () => {
             .get('/event/' + res.dataValues.id)
             .expect('Content-Type', /json/)
             .expect(({ body: actualEvent }) => {
-              /* delete id and timestamps, as they are variable */
+              // delete id and timestamps, as they are variable
               delete actualEvent.id
               delete actualEvent.createdAt
               delete actualEvent.updatedAt

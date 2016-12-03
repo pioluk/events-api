@@ -43,13 +43,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(7)
       },
-      imageThumbnail: {
-        type: Sequelize.TEXT
-      },
-      imageSmall: {
-        type: Sequelize.TEXT
-      },
-      imageBig: {
+      image: {
         type: Sequelize.TEXT
       },
       createdAt: {

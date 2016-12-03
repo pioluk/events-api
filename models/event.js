@@ -44,13 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    imageThumbnail: {
-      type: DataTypes.TEXT
-    },
-    imageSmall: {
-      type: DataTypes.TEXT
-    },
-    imageBig: {
+    image: {
       type: DataTypes.TEXT
     },
     createdAt: {
