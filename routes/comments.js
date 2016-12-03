@@ -2,10 +2,17 @@ const models = require('../models')
 const Comment = models.Comment
 
 exports.getAll = (req, res, next) => {
+  const eventId = +req.params.id
   const limit = +req.query.limit || 20
   const offset = +req.query.offset || 0
 
-  Comment.findAndCount({ order: [['updatedAt', 'DESC']], offset, limit })
+  if (typeof eventId !== 'number' || Object.is(eventId, NaN)) {
+    const error = new Error('Event id must be an integer')
+    error.status = 400
+    throw error
+  }
+
+  Comment.findAndCount({ where: { EventId: eventId }, order: [['updatedAt', 'DESC']], offset, limit })
     .then(results => {
       res.json({
         count: results.count,
@@ -55,7 +62,14 @@ exports.create = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
+  const eventId = +req.params.id
   const commentId = +req.params.commentId
+
+  if (typeof eventId !== 'number' || Object.is(eventId, NaN)) {
+    const error = new Error('Event id should be an integer')
+    error.status = 400
+    throw error
+  }
 
   if (typeof commentId !== 'number' || Object.is(commentId, NaN)) {
     const error = new Error('Comment id should be an integer')
@@ -63,8 +77,14 @@ exports.delete = (req, res, next) => {
     throw error
   }
 
-  Comment.findById(commentId)
+  Comment.findOne({ where: { EventId: eventId, id: commentId } })
     .then(comment => {
+      if (comment === null) {
+        const error = new Error('Comment not found.')
+        error.status = 404
+        throw error
+      }
+
       if (req.user.id !== comment.UserId) {
         const error = new Error('You do not have permission to delete that comment.')
         error.status = 403
