@@ -32,7 +32,7 @@ exports.login = (req, res, next) => {
   User.findOne({ where: { username } })
     .then(user => {
       if (!user) {
-        const error = new Error('User does not exist.')
+        const error = new Error(`User '${username}' does not exist.`)
         error.status = 400
         return next(error)
       }
