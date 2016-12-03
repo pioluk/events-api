@@ -51,9 +51,7 @@ describe('event routes', () => {
             dateEnd: new Date('2016-01-01T13:00'),
             PlaceId: null,
             color: 'ffffff',
-            imageThumbnail: null,
-            imageSmall: null,
-            imageBig: null
+            image: null
           },
           {
             UserId: user.id,
@@ -63,9 +61,7 @@ describe('event routes', () => {
             dateEnd: new Date('2016-01-01T13:00'),
             PlaceId: null,
             color: 'ffffff',
-            imageThumbnail: null,
-            imageSmall: null,
-            imageBig: null
+            image: null
           }
         ]))
         .then(() => {
@@ -97,9 +93,7 @@ describe('event routes', () => {
             dateEnd: new Date('2016-01-01T13:00'),
             PlaceId: null,
             color: 'ffffff',
-            imageThumbnail: null,
-            imageSmall: null,
-            imageBig: null
+            image: null
           },
           {
             UserId: user.id,
@@ -109,9 +103,7 @@ describe('event routes', () => {
             dateEnd: new Date('2016-01-01T13:00'),
             PlaceId: null,
             color: 'ffffff',
-            imageThumbnail: null,
-            imageSmall: null,
-            imageBig: null
+            image: null
           }
         ]))
         .then(() => {
@@ -161,9 +153,7 @@ describe('event routes', () => {
         dateEnd: '2016-01-01T13:00:00.000Z',
         PlaceId: null,
         color: 'ffffff',
-        imageThumbnail: null,
-        imageSmall: null,
-        imageBig: null
+        image: null
       }
 
       Event.create(expectedEvent)
