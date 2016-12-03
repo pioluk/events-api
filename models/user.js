@@ -44,6 +44,13 @@ module.exports = (sequelize, DataTypes) => {
       associate: models => {
         User.hasMany(models.Event)
       }
+    },
+    instanceMethods: {
+      toJSON: function () {
+        const data = this.get({ plain: true })
+        delete data.password
+        return data
+      }
     }
   })
 

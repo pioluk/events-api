@@ -17,8 +17,7 @@ exports.register = (req, res, next) => {
     }
 
     User.create({ username, password: hash, email })
-      .then(dbUser => {
-        const user = Object.assign(dbUser, { password: undefined })
+      .then(user => {
         res.status(201)
         res.json({ user })
       })
