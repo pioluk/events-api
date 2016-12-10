@@ -30,7 +30,7 @@ exports.retrieveWebsites = retrieveWebsites
 
 const requireAuthentication = handler => (req, res, next) => {
   if (typeof req.headers.authorization !== 'string' || !req.headers.authorization.trim()) {
-    const error = new Error('You need to logged in to do that.')
+    const error = new Error('You need to be logged in to do that.')
     error.status = 401
     return next(error)
   }
