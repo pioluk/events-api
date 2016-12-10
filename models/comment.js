@@ -33,7 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'comments',
     classMethods: {
       associate: (models) => {
-        // associations can be defined here
+        Comment.belongsTo(models.User)
+        Comment.belongsTo(models.Event)
       }
     }
   })
