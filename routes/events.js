@@ -1,3 +1,4 @@
+const uuid = require('uuid')
 const models = require('../models')
 const upload = require('../upload')
 const { retrieveEmails, retrievePhones, retrieveWebsites } = require('./helpers')
@@ -76,7 +77,7 @@ const createPlaceIfNotExists = t => (name, lat, lng, placeId) => {
 const addPlaceId = (body, placeId) => Object.assign({}, body, { PlaceId: placeId })
 
 exports.create = (req, res, next) => {
-  const body = req.body
+  let body = req.body
 
   const locationName = body['location.name']
   const locationLat = body['location.lat']
@@ -87,6 +88,11 @@ exports.create = (req, res, next) => {
   const phones = retrievePhones(body)
   const websites = retrieveWebsites(body)
 
+  const image = uuid.v4() + '.jpg'
+  if (req.files && req.files.length) {
+    body.image = image
+  }
+
   let event
 
   sequelize.transaction(t =>
@@ -96,7 +102,7 @@ exports.create = (req, res, next) => {
       .then(() => (emails instanceof Array && emails.length > 0) && addEmails(event.id, emails, t))
       .then(() => (phones instanceof Array && phones.length > 0) && addPhones(event.id, phones, t))
       .then(() => (websites instanceof Array && websites.length > 0) && addWebsites(event.id, websites, t))
-      .then(() => req.files && req.files.length > 0 ? upload(req.files[0]) : Promise.resolve())
+      .then(() => req.files && req.files.length > 0 ? upload(image, req.files[0]) : Promise.resolve())
   )
   .then(() => {
     res.status(201)
