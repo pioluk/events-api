@@ -64,6 +64,9 @@ module.exports = (sequelize, DataTypes) => {
         Event.belongsTo(models.User)
         Event.belongsTo(models.Place)
         Event.hasMany(models.Comment)
+        Event.hasMany(models.Email)
+        Event.hasMany(models.Phone)
+        Event.hasMany(models.Website)
       }
     }
   })

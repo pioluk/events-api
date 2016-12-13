@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
-  const Website = sequelize.define('website', {
+  const Website = sequelize.define('Website', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -22,14 +22,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isUrl: true
       }
-    },
-    created_at: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updated_at: {
-      allowNull: false,
-      type: DataTypes.DATE
     }
   }, {
     classMethods: {
