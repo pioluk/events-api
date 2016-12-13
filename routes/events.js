@@ -29,7 +29,7 @@ exports.get = (req, res, next) => {
     throw error
   }
 
-  Event.findById(id)
+  Event.findById(id, { include: [Email, Phone, Website] })
     .then(event => {
       if (event === null) {
         const error = new Error(`Event with id ${id} could not be found`)

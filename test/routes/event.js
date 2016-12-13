@@ -153,7 +153,10 @@ describe('event routes', () => {
         dateEnd: '2016-01-01T13:00:00.000Z',
         PlaceId: null,
         color: 'ffffff',
-        image: null
+        image: null,
+        Emails: [],
+        Phones: [],
+        Websites: []
       }
 
       Event.create(expectedEvent)
