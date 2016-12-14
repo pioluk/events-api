@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
+    tableName: 'websites',
     classMethods: {
       associate: models => {
         Website.belongsTo(models.Event)

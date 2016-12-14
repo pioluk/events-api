@@ -1,5 +1,7 @@
 'use strict'
 
+const fs = require('fs')
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('places', {
@@ -35,8 +37,13 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    .then(() => {
+      if (queryInterface.sequelize.options.dialect === 'postgres') {
+        return queryInterface.sequelize.query(fs.readFileSync('./sql/place-set-geography.sql', 'utf8'))
+      }
+    })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('places');
+    return queryInterface.dropTable('places')
   }
 }

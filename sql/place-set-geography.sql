@@ -1,6 +1,9 @@
+ALTER TABLE places ADD the_geog GEOGRAPHY NULL;
+
 CREATE OR REPLACE FUNCTION make_geography() RETURNS TRIGGER AS $body$
 BEGIN
   UPDATE places SET the_geog = ST_MakePoint(NEW.lat, NEW.lng)::GEOGRAPHY WHERE id = NEW.id;
+  RETURN NEW;
 END;
 $body$ LANGUAGE plpgsql;
 
