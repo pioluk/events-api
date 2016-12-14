@@ -3,6 +3,7 @@ const multer = require('multer')
 const auth = require('./auth')
 const events = require('./events')
 const comments = require('./comments')
+const search = require('./search')
 const { requireAuthentication } = require('./helpers')
 
 const upload = multer()
@@ -23,5 +24,7 @@ router.get('/event/:id/comment', comments.getAll)
 router.get('/event/:id/comment/:commentId', comments.get)
 router.post('/event/:id/comment', requireAuthentication(comments.create))
 router.delete('/event/:id/comment/:commentId', requireAuthentication(comments.delete))
+
+router.get('/search', search)
 
 module.exports = router
