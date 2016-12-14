@@ -156,7 +156,8 @@ describe('event routes', () => {
         image: null,
         Emails: [],
         Phones: [],
-        Websites: []
+        Websites: [],
+        Place: null
       }
 
       Event.create(expectedEvent)
