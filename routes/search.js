@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
   const lat = +req.query.lat
   const lng = +req.query.lng
   const radius = +req.query.r
+  const limit = +req.query.limit || 24
+  const offset = +req.query.offset || 0
 
   if (typeof lat !== 'number' || Object.is(lat, NaN) ||
       typeof lng !== 'number' || Object.is(lng, NaN) ||
@@ -25,7 +27,8 @@ module.exports = (req, res, next) => {
     SELECT events.*, ST_Distance(ST_MakePoint(${lat}, ${lng})::GEOGRAPHY, places.the_geog) as distance FROM events
       RIGHT JOIN places on events."PlaceId" = places.id
       WHERE ST_DWithin(ST_MakePoint(${lat}, ${lng})::GEOGRAPHY, places.the_geog, ${radius})
-      ORDER BY distance ASC, "updatedAt" DESC
+      ORDER BY distance ASC, "updatedAt" DESC, "createdAt" DESC
+      LIMIT ${limit} OFFSET ${offset}
   `
 
   const countPromise = sequelize.query(countQuery, { type: sequelize.QueryTypes.SELECT })
