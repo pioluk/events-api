@@ -20,7 +20,7 @@ exports.getAll = (req, res, next) => {
         $lte: dateEnd
       }
     },
-    order: [['dateStart', 'DESC']],
+    order: [['dateStart', 'ASC'], ['dateEnd', 'ASC']],
     limit,
     offset
   }

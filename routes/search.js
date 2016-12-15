@@ -35,7 +35,7 @@ module.exports = (req, res, next) => {
     `AND events."deletedAt" is NULL`,
     typeof dateStart === 'string' ? `AND events."dateStart" >= '${dateStart}'` : ``,
     typeof dateEnd === 'string' ? `AND events."dateEnd" <= '${dateEnd}'` : ``,
-    `ORDER BY distance ASC, "updatedAt" DESC, "createdAt" DESC`,
+    `ORDER BY distance ASC, "dateStart" ASC, "dateEnd" ASC`,
     `LIMIT ${limit} OFFSET ${offset}`
   ].join(' ')
 
