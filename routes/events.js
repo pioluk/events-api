@@ -8,8 +8,24 @@ const { sequelize, Event, Email, Phone, Website, Place } = models
 exports.getAll = (req, res, next) => {
   const limit = +req.query.limit || 20
   const offset = +req.query.offset || 0
+  const dateStart = req.query.start || new Date().toJSON()
+  const dateEnd = req.query.end || new Date('2050-01-01').toJSON()
 
-  Event.findAndCount({ order: [['updatedAt', 'DESC']], limit, offset })
+  const options = {
+    where: {
+      dateStart: {
+        $gte: dateStart
+      },
+      dateEnd: {
+        $lte: dateEnd
+      }
+    },
+    order: [['dateStart', 'DESC']],
+    limit,
+    offset
+  }
+
+  Event.findAndCount(options)
     .then(result => {
       res.json({
         count: result.count,
