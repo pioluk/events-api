@@ -13,9 +13,9 @@ describe('event routes', () => {
       .then(() => { done() })
   })
 
-  after(done => {
-    models.sequelize.drop().then(() => { done() })
-  })
+  // after(done => {
+  //   models.sequelize.drop().then(() => { done() })
+  // })
 
   beforeEach(() => {
     app = require('../../app.js')()
@@ -66,7 +66,7 @@ describe('event routes', () => {
         ]))
         .then(() => {
           request(app)
-            .get('/event')
+            .get('/event?start=2016-01-01T00:00:00.000Z')
             .expect('Content-Type', /json/)
             .expect(({ body }) => {
               expect(body).to.be.an('object')
@@ -108,7 +108,7 @@ describe('event routes', () => {
         ]))
         .then(() => {
           request(app)
-            .get('/event?limit=1&offset=1')
+            .get('/event?start=2016-01-01T00:00:00.000Z&limit=1&offset=1')
             .expect('Content-Type', /json/)
             .expect(({ body }) => {
               expect(body).to.be.an('object')
