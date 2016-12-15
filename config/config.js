@@ -1,9 +1,9 @@
 module.exports = {
   development: {
-    username: 'api',
+    username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    database: 'project',
-    host: 'final-project.c1m39k9bh7wp.eu-central-1.rds.amazonaws.com',
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
     dialect: 'postgres'
   },
   test: {
