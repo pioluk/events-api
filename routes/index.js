@@ -4,11 +4,15 @@ const auth = require('./auth')
 const events = require('./events')
 const comments = require('./comments')
 const search = require('./search')
+const health = require('./health')
 const { requireAuthentication } = require('./helpers')
 
 const upload = multer()
 
 const router = express.Router()
+
+// health
+router.get('/health', health)
 
 // auth
 router.post('/register', auth.register)
