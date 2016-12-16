@@ -17,7 +17,7 @@ describe('auth routes', () => {
   })
 
   beforeEach(() => {
-    app = require('../../app.js')()
+    app = require('../../application')()
   })
 
   afterEach(done => {

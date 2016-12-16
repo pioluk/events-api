@@ -4,7 +4,7 @@ describe('app', () => {
   let app = null
 
   beforeEach(() => {
-    app = require('../app')()
+    app = require('../application')()
   })
 
   afterEach(done => {

@@ -47,5 +47,7 @@ module.exports = function createApp () {
     res.json({ success: false, error })
   })
 
-  return app.listen(port)
+  return app.listen(port, () => {
+    console.log('App listening on port', port)
+  })
 }

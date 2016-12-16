@@ -1,0 +1,17 @@
+{
+  "AWSEBDockerrunVersion": 1,
+  "Image": {
+    "Name": "pioluk/api:<TAG>",
+    "Update": "true"
+  },
+  "Authentication": {
+    "Bucket": "pioluk-docker-test",
+    "Key": "index.docker.io/config.json"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 80
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}

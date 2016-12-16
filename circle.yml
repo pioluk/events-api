@@ -10,6 +10,8 @@ machine:
     - mkdir ~/.yarn_cache
   node:
     version: 7.2
+  services:
+    - docker
 dependencies:
   pre:
     - |
@@ -20,6 +22,7 @@ dependencies:
         echo "The correct version of Yarn is already installed."
       fi
     - rm -rf node_modules
+    - docker build --rm=false -f Dockerfile -t pioluk/api:$CIRCLE_SHA1 .
   cache_directories:
     - ~/.yarn
     - ~/.yarn_cache
@@ -28,3 +31,13 @@ dependencies:
 test:
   override:
     - yarn test
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker info
+      - docker tag pioluk/api:$CIRCLE_SHA1 pioluk/api:latest
+      - docker tag pioluk/api:$CIRCLE_SHA1 pioluk/api:circle-$CIRCLE_BUILD_NUM
+      - docker push pioluk/api:$CIRCLE_SHA1
+      - ./deploy.sh $CIRCLE_SHA1
