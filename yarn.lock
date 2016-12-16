@@ -1669,6 +1669,13 @@ request@^2.79.0:
     tunnel-agent "~0.4.1"
     uuid "^3.0.0"
 
+response-time@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/response-time/-/response-time-2.3.2.tgz#ffa71bab952d62f7c1d49b7434355fbc68dffc5a"
+  dependencies:
+    depd "~1.1.0"
+    on-headers "~1.0.1"
+
 retry-as-promised@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/retry-as-promised/-/retry-as-promised-2.1.0.tgz#8bdc09aafe17e612e9819fe2b2d60cd557a37668"

@@ -1,4 +1,5 @@
 const express = require('express')
+const responseTime = require('response-time')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
 // const helmet = require('helmet')
@@ -14,6 +15,7 @@ module.exports = function createApp () {
   app.disable('etag')
   app.disable('views')
 
+  app.use(responseTime())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   if (process.env.NODE_ENV !== 'test') {
