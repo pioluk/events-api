@@ -12,24 +12,24 @@
     "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test"
   },
   "dependencies": {
-    "aws-sdk": "^2.7.15",
-    "bcrypt": "^0.8.7",
-    "body-parser": "^1.15.2",
-    "cors": "^2.8.1",
-    "express": "^4.14.0",
-    "jsonwebtoken": "^7.2.1",
-    "morgan": "^1.7.0",
-    "multer": "^1.2.1",
-    "pg": "^6.1.2",
-    "response-time": "^2.3.2",
-    "sequelize": "^3.27.0",
-    "uuid": "^3.0.1"
+    "aws-sdk": "2.7.15",
+    "bcrypt": "0.8.7",
+    "body-parser": "1.15.2",
+    "cors": "2.8.1",
+    "express": "4.14.0",
+    "jsonwebtoken": "7.2.1",
+    "morgan": "1.7.0",
+    "multer": "1.2.1",
+    "pg": "6.1.2",
+    "response-time": "2.3.2",
+    "sequelize": "3.27.0",
+    "uuid": "3.0.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "nodemon": "^1.11.0",
-    "sqlite3": "^3.1.8",
-    "supertest": "^2.0.0"
+    "chai": "3.5.0",
+    "mocha": "3.2.0",
+    "nodemon": "1.11.0",
+    "sqlite3": "3.1.8",
+    "supertest": "2.0.1"
   }
 }
