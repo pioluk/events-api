@@ -97,9 +97,9 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-aws-sdk@^2.7.14:
-  version "2.7.14"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.7.14.tgz#043e3a543b2b5e6d8d78d3733ba6a27ae23dd8c5"
+aws-sdk@^2.7.15:
+  version "2.7.15"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.7.15.tgz#b3257c95553dfa28707f468bc664f0b14f506295"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -1248,9 +1248,9 @@ ms@0.7.1, ms@^0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
-multer@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/multer/-/multer-1.2.0.tgz#5be1a45259fb04d2753d33c7c2a1caf5224705a2"
+multer@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/multer/-/multer-1.2.1.tgz#759959c6c19f7fb03d0239f1df0b1ecec88473a3"
   dependencies:
     append-field "^0.1.0"
     busboy "^0.2.11"
