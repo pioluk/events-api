@@ -144,6 +144,7 @@ exports.nearby = (req, res, next) => {
     `RIGHT JOIN places on events."PlaceId" = places.id`,
     `WHERE ST_DWithin(ST_MakePoint($lat, $lng)::GEOGRAPHY, places.the_geog, ${radius})`,
     `AND events."deletedAt" is NULL`,
+    `AND events."id" <> $id`,
     typeof dateStart === 'string' ? `AND events."dateStart" >= '${dateStart}'` : ``,
     `ORDER BY distance ASC, "dateStart" ASC, "dateEnd" ASC`,
     `LIMIT 6`
@@ -160,7 +161,7 @@ exports.nearby = (req, res, next) => {
       return { lat: event.Place.lat, lng: event.Place.lng }
     })
     .then(({ lat, lng }) => {
-      const query = selectQuery.replace(/\$lat/g, lat).replace(/\$lng/g, lng)
+      const query = selectQuery.replace(/\$lat/g, lat).replace(/\$lng/g, lng).replace('$id', id)
       return sequelize.query(query, { model: Event, type: sequelize.QueryTypes.SELECT })
     })
     .then(events => {
