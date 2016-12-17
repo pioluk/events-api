@@ -126,3 +126,45 @@ exports.create = (req, res, next) => {
   })
   .catch(err => next(err))
 }
+
+exports.nearby = (req, res, next) => {
+  const id = +req.params.id
+
+  if (typeof id !== 'number' || Object.is(id, NaN)) {
+    const error = new Error('Event id should be an integer')
+    error.status = 400
+    throw error
+  }
+
+  const dateStart = new Date().toJSON()
+  const radius = 5000 // 5km
+
+  const selectQuery = [
+    `SELECT events.*, ST_Distance(ST_MakePoint($lat, $lng)::GEOGRAPHY, places.the_geog) as distance FROM events`,
+    `RIGHT JOIN places on events."PlaceId" = places.id`,
+    `WHERE ST_DWithin(ST_MakePoint($lat, $lng)::GEOGRAPHY, places.the_geog, ${radius})`,
+    `AND events."deletedAt" is NULL`,
+    typeof dateStart === 'string' ? `AND events."dateStart" >= '${dateStart}'` : ``,
+    `ORDER BY distance ASC, "dateStart" ASC, "dateEnd" ASC`,
+    `LIMIT 6`
+  ].join(' ')
+
+  Event.findById(id, { include: [Place] })
+    .then(event => {
+      if (!event) {
+        const error = new Error(`Event with id ${id} was not found.`)
+        error.status = 404
+        throw error
+      }
+
+      return { lat: event.Place.lat, lng: event.Place.lng }
+    })
+    .then(({ lat, lng }) => {
+      const query = selectQuery.replace(/\$lat/g, lat).replace(/\$lng/g, lng)
+      return sequelize.query(query, { model: Event, type: sequelize.QueryTypes.SELECT })
+    })
+    .then(events => {
+      res.json(events)
+    })
+    .catch(err => next(err))
+}
