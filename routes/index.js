@@ -30,6 +30,8 @@ router.get('/event/:id/comment/:commentId', comments.get)
 router.post('/event/:id/comment', requireAuthentication(comments.create))
 router.delete('/event/:id/comment/:commentId', requireAuthentication(comments.delete))
 
-router.get('/search', search)
+// search
+router.get('/search/location', search.location)
+router.get('/search/fts', search.fts)
 
 module.exports = router

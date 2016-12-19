@@ -2,7 +2,42 @@ const models = require('../models')
 
 const { sequelize, Event } = models
 
-module.exports = (req, res, next) => {
+exports.fts = (req, res, next) => {
+  const query = req.query.q
+  const limit = +req.query.limit || 24
+  const offset = +req.query.offset || 0
+  const dateStart = req.query.start || new Date().toJSON()
+
+  const countQuery = [
+    `SELECT count(id)`,
+    `FROM events_search_index`,
+    `WHERE document @@ to_tsquery('simple', '${query}')`,
+    `AND "deletedAt" IS NULL`
+  ].join(' ')
+
+  const selectQuery = [
+    `SELECT id, title, description, color, image, "dateStart", "dateEnd", "createdAt", "updatedAt", ts_rank(document, to_tsquery('simple', '${query}')) AS rank`,
+    `FROM events_search_index`,
+    `WHERE document @@ to_tsquery('simple', '${query}')`,
+    `AND "deletedAt" is NULL`,
+    `AND "dateStart" >= '${dateStart}'`,
+    `ORDER BY "dateStart" ASC`,
+    `LIMIT ${limit} OFFSET ${offset}`
+  ].join(' ')
+
+  const countPromise = sequelize.query(countQuery, { type: sequelize.QueryTypes.SELECT })
+    .then(([result]) => +result.count)
+
+  const selectPromise = sequelize.query(selectQuery, { model: Event, type: sequelize.QueryTypes.SELECT })
+
+  Promise.all([countPromise, selectPromise])
+    .then(([count, events]) => {
+      res.json({ count, events })
+    })
+    .catch(err => next(err))
+}
+
+exports.location = (req, res, next) => {
   const lat = +req.query.lat
   const lng = +req.query.lng
   const radius = +req.query.r
