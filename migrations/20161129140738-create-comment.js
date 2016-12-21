@@ -1,5 +1,7 @@
 'use strict'
 
+const fs = require('fs')
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('comments', {
@@ -39,6 +41,11 @@ module.exports = {
       },
       deletedAt: {
         type: Sequelize.DATE
+      }
+    })
+    .then(() => {
+      if (queryInterface.sequelize.options.dialect === 'postgres') {
+        return queryInterface.sequelize.query(fs.readFileSync('./sql/events_fts.sql', 'utf8'))
       }
     })
   },
