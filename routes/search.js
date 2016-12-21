@@ -12,7 +12,8 @@ exports.fts = (req, res, next) => {
     `SELECT count(id)`,
     `FROM events_search_index`,
     `WHERE document @@ to_tsquery('simple', '${query}')`,
-    `AND "deletedAt" IS NULL`
+    `AND "deletedAt" IS NULL`,
+    `AND "dateStart" >= '${dateStart}'`
   ].join(' ')
 
   const selectQuery = [
