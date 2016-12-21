@@ -10,7 +10,7 @@ exports.fts = (req, res, next) => {
 
   const countQuery = [
     `SELECT count(id)`,
-    `FROM events_search_index`,
+    `FROM events_fts`,
     `WHERE document @@ to_tsquery('simple', '${query}')`,
     `AND "deletedAt" IS NULL`,
     `AND "dateStart" >= '${dateStart}'`
@@ -18,7 +18,7 @@ exports.fts = (req, res, next) => {
 
   const selectQuery = [
     `SELECT id, title, description, color, image, "dateStart", "dateEnd", "createdAt", "updatedAt", ts_rank(document, to_tsquery('simple', '${query}')) AS rank`,
-    `FROM events_search_index`,
+    `FROM events_fts`,
     `WHERE document @@ to_tsquery('simple', '${query}')`,
     `AND "deletedAt" is NULL`,
     `AND "dateStart" >= '${dateStart}'`,
