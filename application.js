@@ -2,7 +2,7 @@ const express = require('express')
 const responseTime = require('response-time')
 const bodyParser = require('body-parser')
 const logger = require('morgan')
-// const helmet = require('helmet')
+const helmet = require('helmet')
 const cors = require('cors')
 const routes = require('./routes')
 
@@ -21,7 +21,10 @@ module.exports = function createApp () {
   if (process.env.NODE_ENV !== 'test') {
     app.use(logger('dev'))
   }
-  // app.use(helmet())
+
+  if (process.env.NODE_ENV === 'production') {
+    app.use(helmet())
+  }
 
   app.use((req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
