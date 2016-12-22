@@ -1,4 +1,7 @@
 'use strict'
+
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const Event = sequelize.define('Event', {
     id: {
@@ -67,6 +70,14 @@ module.exports = (sequelize, DataTypes) => {
         Event.hasMany(models.Email)
         Event.hasMany(models.Phone)
         Event.hasMany(models.Website)
+      }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.title = xss(instance.title)
+        instance.description = xss(instance.description)
+        instance.color = xss(instance.color)
+        instance.image = xss(instance.image)
       }
     }
   })

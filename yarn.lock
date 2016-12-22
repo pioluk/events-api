@@ -398,6 +398,10 @@ crypto-browserify@1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/crypto-browserify/-/crypto-browserify-1.0.9.tgz#cc5449685dfb85eb11c9828acc7cb87ab5bbfcc0"
 
+cssfilter@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/cssfilter/-/cssfilter-0.0.9.tgz#8f5ceb3aabd768db539da4582b2152d63ef7715e"
+
 dashdash@^1.12.0:
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.0.tgz#29e486c5418bf0f356034a993d51686a33e84141"
@@ -2244,6 +2248,13 @@ xmlbuilder@2.6.2, xmlbuilder@>=2.4.6:
   resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-2.6.2.tgz#f916f6d10d45dc171b1be2e6e673fb6e0cc35d0a"
   dependencies:
     lodash "~3.5.0"
+
+xss@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/xss/-/xss-0.3.3.tgz#a014360dee10317331f9e74258141f7ed03fc784"
+  dependencies:
+    commander "^2.9.0"
+    cssfilter "0.0.9"
 
 xtend@^4.0.0, xtend@^4.0.1:
   version "4.0.1"

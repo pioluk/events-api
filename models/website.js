@@ -1,5 +1,7 @@
 'use strict'
 
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const Website = sequelize.define('Website', {
     id: {
@@ -29,8 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       associate: models => {
         Website.belongsTo(models.Event)
       }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.address = xss(instance.address)
+      }
     }
   })
-  // Website.removeAttribute('id')
+
   return Website
 }

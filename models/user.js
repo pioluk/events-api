@@ -1,3 +1,7 @@
+'use strict'
+
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -50,6 +54,13 @@ module.exports = (sequelize, DataTypes) => {
         const data = this.get({ plain: true })
         delete data.password
         return data
+      }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.username = xss(instance.username)
+        instance.email = xss(instance.email)
+        instance.imageAvatar = xss(instance.imageAvatar)
       }
     }
   })

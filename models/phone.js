@@ -1,5 +1,7 @@
 'use strict'
 
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const Phone = sequelize.define('Phone', {
     id: {
@@ -25,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: models => {
         Phone.belongsTo(models.Event)
+      }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.number = xss(instance.number)
       }
     }
   })

@@ -1,4 +1,7 @@
 'use strict'
+
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const Place = sequelize.define('Place', {
     id: {
@@ -28,6 +31,12 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Place.hasMany(models.Event)
+      }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.name = xss(instance.name)
+        instance.placeId = xss(instance.placeId)
       }
     }
   })

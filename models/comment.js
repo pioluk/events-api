@@ -1,4 +1,7 @@
 'use strict'
+
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
     id: {
@@ -35,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       associate: (models) => {
         Comment.belongsTo(models.User)
         Comment.belongsTo(models.Event)
+      }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.text = xss(instance.text)
       }
     }
   })

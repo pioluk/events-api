@@ -1,4 +1,7 @@
 'use strict'
+
+const xss = require('xss')
+
 module.exports = (sequelize, DataTypes) => {
   const Email = sequelize.define('Email', {
     id: {
@@ -28,8 +31,12 @@ module.exports = (sequelize, DataTypes) => {
       associate: models => {
         Email.belongsTo(models.Event)
       }
+    },
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.address = xss(instance.address)
+      }
     }
   })
-  // Email.removeAttribute('id')
   return Email
 }
