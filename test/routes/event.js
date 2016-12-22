@@ -1,4 +1,4 @@
-/* global describe:true, before:true, after:true, beforeEach:true, afterEach:true, it:true */
+/* global describe:true, before:true, beforeEach:true, afterEach:true, it:true */
 
 const request = require('supertest')
 const { expect } = require('chai')
@@ -12,10 +12,6 @@ describe('event routes', () => {
     models.sequelize.sync()
       .then(() => { done() })
   })
-
-  // after(done => {
-  //   models.sequelize.drop().then(() => { done() })
-  // })
 
   beforeEach(() => {
     app = require('../../app')()
