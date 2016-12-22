@@ -18,7 +18,7 @@ describe('event routes', () => {
   // })
 
   beforeEach(() => {
-    app = require('../../application')()
+    app = require('../../app')()
   })
 
   afterEach(done => {
