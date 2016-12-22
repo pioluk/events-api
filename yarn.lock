@@ -2249,7 +2249,7 @@ xmlbuilder@2.6.2, xmlbuilder@>=2.4.6:
   dependencies:
     lodash "~3.5.0"
 
-xss@^0.3.3:
+xss@0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/xss/-/xss-0.3.3.tgz#a014360dee10317331f9e74258141f7ed03fc784"
   dependencies:
