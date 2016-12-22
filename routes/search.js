@@ -11,25 +11,32 @@ exports.fts = (req, res, next) => {
   const countQuery = [
     `SELECT count(id)`,
     `FROM events_fts`,
-    `WHERE document @@ to_tsquery('simple', '${query}')`,
+    `WHERE document @@ to_tsquery('simple', :query)`,
     `AND "deletedAt" IS NULL`,
-    `AND "dateStart" >= '${dateStart}'`
+    `AND "dateStart" >= :dateStart`
   ].join(' ')
 
   const selectQuery = [
     `SELECT id, title, description, color, image, "dateStart", "dateEnd", "createdAt", "updatedAt", ts_rank(document, to_tsquery('simple', '${query}')) AS rank`,
     `FROM events_fts`,
-    `WHERE document @@ to_tsquery('simple', '${query}')`,
+    `WHERE document @@ to_tsquery('simple', :query)`,
     `AND "deletedAt" is NULL`,
-    `AND "dateStart" >= '${dateStart}'`,
+    `AND "dateStart" >= :dateStart`,
     `ORDER BY "dateStart" ASC`,
-    `LIMIT ${limit} OFFSET ${offset}`
+    `LIMIT :limit OFFSET :offset`
   ].join(' ')
 
-  const countPromise = sequelize.query(countQuery, { type: sequelize.QueryTypes.SELECT })
-    .then(([result]) => +result.count)
+  const countPromise = sequelize.query(countQuery, {
+    replacements: { dateStart, query },
+    type: sequelize.QueryTypes.SELECT
+  })
+  .then(([result]) => +result.count)
 
-  const selectPromise = sequelize.query(selectQuery, { model: Event, type: sequelize.QueryTypes.SELECT })
+  const selectPromise = sequelize.query(selectQuery, {
+    model: Event,
+    replacements: { dateStart, limit, offset, query },
+    type: sequelize.QueryTypes.SELECT
+  })
 
   Promise.all([countPromise, selectPromise])
     .then(([count, events]) => {
