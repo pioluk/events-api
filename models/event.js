@@ -77,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
         instance.title = xss(instance.title)
         instance.description = xss(instance.description)
         instance.color = xss(instance.color)
-        instance.image = xss(instance.image)
+        instance.image = instance.image === null ? null : xss(instance.image)
       }
     }
   })
