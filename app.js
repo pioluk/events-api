@@ -6,9 +6,6 @@ const helmet = require('helmet')
 const cors = require('cors')
 const routes = require('./routes')
 
-const DEFAULT_PORT = 3000
-const port = process.env.PORT || DEFAULT_PORT
-
 module.exports = function createApp () {
   const app = express()
 
@@ -52,7 +49,5 @@ module.exports = function createApp () {
     res.json({ success: false, error })
   })
 
-  return app.listen(port, () => {
-    console.log('App listening on port', port)
-  })
+  return app
 }
