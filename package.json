@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Piotr Łukomiak <181423@edu.p.lodz.pl>",
   "private": true,
   "eslintConfig": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "watch": "NODE_ENV=development SECRET=dev nodemon main.js",
-    "start": "NODE_ENV=production SECRET=dev PORT=80 node main.js",
+    "start": "NODE_ENV=production PORT=80 node main.js",
     "test": "NODE_ENV=test SECRET=test PORT=3334 mocha --recursive test"
   },
   "dependencies": {
