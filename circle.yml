@@ -22,7 +22,7 @@ dependencies:
         echo "The correct version of Yarn is already installed."
       fi
     - rm -rf node_modules
-    - docker build --rm=false -f Dockerfile -t pioluk/api:$CIRCLE_SHA1 .
+    - docker build --rm=false --build-arg NODE_ENV=production -f Dockerfile -t pioluk/api:$CIRCLE_SHA1 .
   cache_directories:
     - ~/.yarn
     - ~/.yarn_cache
