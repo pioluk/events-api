@@ -1,0 +1,8 @@
+.git/
+node_modules/
+seeders/
+test/
+circle.yml
+deploy.sh
+Dockerfile
+Dockerrun.aws.json.template
