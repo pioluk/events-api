@@ -4,12 +4,12 @@ general:
       - master
 machine:
   environment:
-    YARN_VERSION: 0.18.1
+    YARN_VERSION: 0.19.1
     PATH: "${PATH}:${HOME}/.yarn/bin"
   pre:
     - mkdir ~/.yarn_cache
   node:
-    version: 7.2
+    version: 7.4
   services:
     - docker
 dependencies:
