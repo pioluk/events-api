@@ -20,11 +20,11 @@ router.post('/login', auth.login)
 
 // events
 router.get('/event', events.getAll)
-router.get('/event/:id', events.get)
 router.post('/event', upload.any(), requireAuthentication(events.create))
-router.get('/event/:id/nearby', events.nearby)
 router.get('/event/search', search.fts)
 router.get('/event/location', search.location)
+router.get('/event/:id', events.get)
+router.get('/event/:id/nearby', events.nearby)
 
 // comments
 router.get('/event/:id/comment', comments.getAll)
